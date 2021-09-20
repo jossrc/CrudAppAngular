@@ -1,1 +1,25 @@
-<p>list works!</p>
+<div class="table-responsive text-nowrap">
+  <table class="table">
+    <thead>
+      <tr class="table-info">
+        <th scope="col">Id</th>
+        <th scope="col">Título</th>
+        <th scope="col">Categoría</th>
+        <th scope="col">Páginas</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of listOfBooks">
+        <th scope="row">{{ book.id }}</th>
+        <td>{{ book.title }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.pages }}</td>
+        <td>
+          <a class="btn btn-info" [routerLink]="['../editar', book.id]">Editar</a>
+          <button class="mx-2 btn btn-danger" (click)="removeBookById(book.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
