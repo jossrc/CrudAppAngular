@@ -1,2 +1,29 @@
-<p>book works!</p>
-<router-outlet></router-outlet>
+<div class="row mt-4">
+    <div class="col-sm-4">
+        <ul class="list-group">
+            <li
+              routerLink="registrar"
+              routerLinkActive="active"
+              class="list-group-item"
+            >
+              Registrar Libro
+            </li>
+            <li 
+              routerLink="listado"
+              routerLinkActive="active"
+              class="list-group-item">
+              Listado
+            </li>
+            <li
+              class="list-group-item disabled"
+            >
+              Buscar por Nombre
+            </li>
+          </ul>
+    </div>
+    <div class="col-sm-6">        
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
