@@ -1,65 +1,130 @@
-<div class="card p-4 bg-gray">
-  <form>
+<div class="mt-4 card p-4 bg-gray animate__animated animate__fadeIn">
+  <form
+    [formGroup]="myBookForm"
+    method="POST"
+    autocomplete="off"
+    (ngSubmit)="saveData()"
+  >
     <div class="row g-3">
       <div class="col-12">
         <label class="form-label">ISBN</label>
         <input
           type="text"
-          class="form-control"
+          [class]="validClass('Isbn', 'form-control')"
           placeholder="Ingrese un ISBN"
+          formControlName="Isbn"
           aria-label="ISBN del Libro"
         />
+        <div *ngIf="isValidField('Isbn')" class="invalid-feedback">
+          {{ isbnErrorMsg }}
+        </div>
       </div>
       <div class="col-12">
         <label class="form-label">Título</label>
         <input
           type="text"
-          class="form-control"
+          [class]="validClass('Titulo', 'form-control')"
           placeholder="Ingrese un Título"
+          formControlName="Titulo"
           aria-label="ISBN del Libro"
         />
+        <div *ngIf="isValidField('Titulo')" class="invalid-feedback">
+          {{ titleErrorMsg }}
+        </div>
       </div>
       <div class="col-12">
         <label class="form-label">Autor</label>
-        <select class="form-select">
-          <option selected>Seleccione un Autor</option>
-          <option>J. R.R Tolkien</option>
-          <option>George R.R Martin</option>
-          <option>J. K. Rowling</option>
-          <option>Andrzej Sapkowski</option>
-          <option>Frank Herbert</option>
+        <select
+          [class]="validClass('IdAutor', 'form-select')"
+          formControlName="IdAutor"
+        >
+          <option selected value="">Seleccione un Autor</option>
+          <option *ngFor="let author of authors" [value]="author.Id">
+            {{ author.Nombre }}
+          </option>
         </select>
+        <div *ngIf="isValidField('IdAutor')" class="invalid-feedback">
+          Seleccione un Autor válido
+        </div>
       </div>
       <div class="col-12">
         <label class="form-label">Categoría</label>
-        <select class="form-select">
-          <option selected>Seleccione una Categoría</option>
-          <option>Terror</option>
-          <option>Fantasía</option>
-          <option>Romance</option>
-          <option>Drama</option>
-          <option>Comedia</option>
+        <select
+          [class]="validClass('IdCategoria', 'form-select')"
+          formControlName="IdCategoria"
+        >
+          <option selected value="">Seleccione una Categoría</option>
+          <option *ngFor="let category of categories" [value]="category.Id">
+            {{ category.Descripcion }}
+          </option>
         </select>
+        <div *ngIf="isValidField('IdCategoria')" class="invalid-feedback">
+          Seleccione una Categoría válida
+        </div>
       </div>
       <div class="col-md-4">
         <label class="form-label">Páginas</label>
-        <input type="number" class="form-control" placeholder="0" />
+        <input
+          type="number"
+          [class]="validClass('Paginas', 'form-control')"
+          formControlName="Paginas"
+          placeholder="0"
+        />
+        <div *ngIf="isValidField('Paginas')" class="invalid-feedback">
+          {{ pagesErrorMsg }}
+        </div>
       </div>
       <div class="col-md-4">
         <label class="form-label">Stock</label>
-        <input type="number" class="form-control" placeholder="0" />
+        <input
+          type="number"
+          [class]="validClass('Stock', 'form-control')"
+          formControlName="Stock"
+          placeholder="0"
+        />
+        <div *ngIf="isValidField('Stock')" class="invalid-feedback">
+          {{ stockErrorMsg }}
+        </div>
       </div>
       <div class="col-md-4">
         <label class="form-label">Precio</label>
-        <input type="number" class="form-control" placeholder="0.0" />
+        <input
+          type="number"
+          [class]="validClass('Precio', 'form-control')"
+          formControlName="Precio"
+          placeholder="0.0"
+        />
+        <div *ngIf="isValidField('Precio')" class="invalid-feedback">
+          {{ priceErrorMsg }}
+        </div>
       </div>
       <div class="col-12">
         <label class="form-label">Descripción</label>
-        <textarea class="form-control" style="height: 100px"></textarea>
+        <textarea
+          class="form-control"
+          [class]="validClass('Descripcion', 'form-control')"
+          formControlName="Descripcion"
+          style="height: 100px"
+        ></textarea>
+        <div *ngIf="isValidField('Descripcion')" class="invalid-feedback">
+          {{ descriptionErrorMsg }}
+        </div>
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-outline-primary float-end">Registrar</button>
+        <button type="submit" class="btn btn-outline-primary float-end">
+          {{ bookId === -1 ? "Registrar" : "Actualizar" }}
+        </button>
       </div>
-    </div>    
+    </div>
   </form>
+</div>
+
+<div *ngIf="isActive">
+  <div
+    class="alert alert-dismissible fade show mx-5 mt-3"
+    [ngClass]="{ 'alert-success': !isError, 'alert-danger': isError }"
+    role="alert"
+  >
+    <strong>Mensaje! </strong> {{ messageAlert }}
+  </div>
 </div>

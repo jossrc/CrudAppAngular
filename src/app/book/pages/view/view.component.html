@@ -1,0 +1,104 @@
+<div class="card p-4 bg-gray animate__animated animate__fadeIn">
+    <form
+      #myForm="ngForm"
+      autocomplete="off"
+    >
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">ISBN</label>
+          <input
+            type="text"
+            name="Isbn"
+            [ngModel]="book.Isbn"
+            class="form-control"
+            aria-label="ISBN del Libro"
+            disabled
+          />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Título</label>
+          <input
+            type="text"
+            name="Titulo"
+            [ngModel]="book.Titulo"
+            class="form-control"
+            aria-label="ISBN del Libro"
+            disabled
+          />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Autor</label>
+          <select
+            class="form-select"
+            name="IdAutor"
+            [ngModel]="book.IdAutor"
+            disabled
+          >
+            <option selected value="-1">Seleccione un Autor</option>
+            <option *ngFor="let author of authors" [value]="author.Id">
+              {{ author.Nombre }}
+            </option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Categoría</label>
+          <select
+            class="form-select"
+            name="IdCategoria"
+            [ngModel]="book.IdCategoria"
+            disabled
+          >
+            <option selected value="-1">Seleccione una Categoría</option>
+            <option *ngFor="let category of categories" [value]="category.Id">
+              {{ category.Descripcion }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Páginas</label>
+          <input
+            type="number"
+            class="form-control"
+            name="Paginas"
+            [ngModel]="book.Paginas"
+            disabled
+          />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Stock</label>
+          <input
+            type="number"
+            class="form-control"
+            name="Stock"
+            [ngModel]="book.Stock"
+            disabled
+          />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Precio</label>
+          <input
+            type="number"
+            class="form-control"
+            name="Precio"
+            [ngModel]="book.Precio"
+            disabled
+          />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Descripción</label>
+          <textarea
+            class="form-control"
+            name="Descripcion"
+            [ngModel]="book.Descripcion"
+            style="height: 100px"
+            disabled
+          ></textarea>
+        </div>
+        <div class="col-12">
+          <a [routerLink]="['../../listado']" class="btn btn-outline-primary float-end">
+            Regresar
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>

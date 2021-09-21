@@ -1,23 +1,25 @@
-<div class="table-responsive text-nowrap">
+<div class="table-responsive text-nowrap mt-4 animate__animated animate__fadeIn">
   <table class="table">
     <thead>
       <tr class="table-info">
         <th scope="col">Id</th>
         <th scope="col">Título</th>
-        <th scope="col">Categoría</th>
-        <th scope="col">Páginas</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Precio</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let book of listOfBooks">
-        <th scope="row">{{ book.id }}</th>
-        <td>{{ book.title }}</td>
-        <td>{{ book.category }}</td>
-        <td>{{ book.pages }}</td>
+        <th scope="row">
+          <a class="view-link" [routerLink]="[ '../ver', book.Id ]">{{ book.Id }}</a>
+        </th>
+        <td>{{ book.Titulo }}</td>
+        <td>{{ book.Stock }}</td>
+        <td>{{ book.Precio }}</td>
         <td>
-          <a class="btn btn-info" [routerLink]="['../editar', book.id]">Editar</a>
-          <button class="mx-2 btn btn-danger" (click)="removeBookById(book.id)">Eliminar</button>
+          <a class="btn btn-info" [routerLink]="['../editar', book.Id]">Editar</a>
+          <button class="mx-2 btn btn-danger" (click)="removeBookById(book.Id)">Eliminar</button>
         </td>
       </tr>
     </tbody>

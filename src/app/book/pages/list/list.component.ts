@@ -1,52 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../../interfaces/book.interface';
+import { Book, Response } from '../../interfaces/book.interface';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-list',
-  templateUrl: './list.component.html'
+  templateUrl: './list.component.html',
+  styles: [
+    `
+      .view-link {
+        font-weight: 400;
+        text-decoration: none;
+        color: rgb(118, 148, 233);
+      }
+
+      .view-link:hover {
+        text-decoration: underline;
+        color: rgb(176, 193, 238);
+      }
+    `,
+  ],
 })
 export class ListComponent implements OnInit {
+  listOfBooks: Book[] = [];
 
-  listOfBooks: Book[] = [
-    {
-      id: 1,
-      title: 'El mejor libro',
-      category: 'Autoayuda',
-      pages: 325
-    },
-    {
-      id: 2,
-      title: 'Pepito',
-      category: 'Terror',
-      pages: 521
-    },
-    {
-      id: 3,
-      title: 'Canción de Hielo y Fuego',
-      category: 'Fantasía',
-      pages: 1250
-    },
-    {
-      id: 4,
-      title: 'Harry Potter',
-      category: 'Fantasía',
-      pages: 670
-    },
-    {
-      id: 5,
-      title: 'Las Aventuras de Tintin',
-      category: 'Drama',
-      pages: 122
-    }
-  ]
-
-  constructor() { }
+  constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
+    this.loadBooks();
   }
 
   removeBookById(id: number) {
-    console.log(`Se eliminó el libro con id ${id}`);
+    this.bookService.deleteBook(id).subscribe((resp: Response) => {
+      this.loadBooks();
+      console.log(resp.message);
+    });
   }
 
+  loadBooks() {
+    this.bookService
+      .getBooks()
+      .subscribe((books: Book[]) => (this.listOfBooks = books));
+  }
 }
